@@ -1,0 +1,121 @@
+#include <iostream>
+#include <vector>
+
+
+void tri_3(auto begin,auto end)
+{
+	auto pivot = *begin;
+	auto bf_pivot = begin;
+	auto *pointeur = &begin;
+	// std::cout << *(*pointeur)<< "pointeur"<< std::endl;
+	
+	if(begin == end)
+	{
+		std::cout << "Rentre : 1\n";
+	}
+	
+	 else if((begin+1) == end)
+	{
+		std::cout << "Rentre : 2\n";
+	}
+	
+	
+	
+	
+	else
+	{
+		
+		std::cout << "Bonjourno"<< std::endl;
+		for(auto parcours = (begin+1); parcours != end; parcours++)
+		{
+			if( *parcours < pivot) 
+			{		
+				auto x = *parcours;
+				*parcours = *bf_pivot;
+				*bf_pivot = x;
+
+				bf_pivot++;
+				std::cout << *bf_pivot << " ";
+			}
+		}
+		
+		if(*(*pointeur) == *bf_pivot)
+		{
+			std::cout << "\nTableau 1 : ";
+			for(auto i=begin; i != bf_pivot+1;i++)
+			{
+				std::cout << *i <<' ';
+			}
+			std::cout <<std::endl;
+			
+			std::cout << "Tableau 2 : ";
+			for(auto i=bf_pivot+1; i != end;i++)
+			{
+				std::cout << *i <<' ';
+			}
+			std::cout << std::endl;
+			
+			tri_3(begin,bf_pivot);
+			tri_3(bf_pivot+1,end);
+		}
+	
+		else
+		{
+			std::cout << "\nTableau 1 : ";
+			for(auto i=begin; i != bf_pivot+1;i++)
+			{
+				std::cout << *i <<' ';
+			}
+			std::cout <<std::endl;
+			
+			std::cout << "Tableau 2 : ";
+			for(auto i=bf_pivot+1; i != end;i++)
+			{
+				std::cout << *i <<' ';
+			}
+			std::cout << std::endl;
+				
+			tri_3(begin,bf_pivot);
+			tri_3(bf_pivot,end);
+		}
+	}
+}
+
+
+void tri_rapide(std::vector<int> &tableau)
+{
+	int pivot_indice;
+	int indice_parcours;
+	size_t taille = tableau.size();
+	for(pivot_indice = 0; (size_t)pivot_indice < taille; pivot_indice++)
+	{
+		for(indice_parcours = 0;(size_t) indice_parcours < taille
+			;indice_parcours++)
+		{
+			if(tableau[pivot_indice] < tableau[indice_parcours])
+			{
+				int x = tableau[pivot_indice];
+				tableau[pivot_indice] = tableau[indice_parcours];
+				tableau[indice_parcours] = x;
+			}
+		}
+	}
+}
+
+
+
+
+int main()
+{
+    std::vector<int> tableau{18,15,4,21,12,42,58,13,45,67,21,1,231,43,32,454,65,65};
+	// tri_3(tableau.begin(),tableau.end());
+	tri_rapide(tableau);
+
+	for(int i : tableau)
+	{
+		std::cout << i <<' ';
+	}
+
+    return 0;
+	
+}
