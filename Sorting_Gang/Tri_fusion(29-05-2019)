@@ -3,21 +3,31 @@
 
 std::vector<int> Fusion(std::vector<int> tableau1,std::vector<int> tableau2)
 {
+	std::vector<int> tableau{};
 	
-	// int j = 0;
-	// for(auto i = tableau1.begin(); i != tableau1.end();i++)
-	// {
-		// for(j;j<tableau2.size();j++)
-		// {
-			// if(tableau2[j] > (*i))
-			// {
-				// break;
-			// }
-			// tableau1.insert(i,j);
-		// }
-	// }
-	tableau1.insert(tableau1.end(),tableau2.begin(),tableau2.end());
-	return tableau1;
+	auto j = tableau2.begin();
+	auto i = tableau1.begin();
+
+	for(;i != tableau1.end();i++)
+	{
+		for(; j != tableau2.end();j++)
+		{
+			if((*j) >= (*i))
+			{
+				break;
+			}
+		tableau.push_back(*j);
+		}
+		tableau.push_back(*i);
+	}
+	if(j!=tableau2.end())
+	{
+		for(;j!=tableau2.end();j++)
+		{
+			tableau.push_back(*j);
+		}
+	}
+	return tableau;
 }
 
 std::vector<int> Merge_sort_dispersion(std::vector<int> tableau,int indice_debut,int indice_fin)
@@ -25,30 +35,13 @@ std::vector<int> Merge_sort_dispersion(std::vector<int> tableau,int indice_debut
 	if(indice_debut >= indice_fin)
 	{
 		std::vector<int> new_tab{};
-		tableau.push_back(tableau[indice_debut]);
+		new_tab.push_back(tableau[indice_debut]);
 		return new_tab;
 	}
 	else
 	{
 		int milieu = (int)((indice_debut+indice_fin)/2);
-	
-	std::cout<< indice_debut  <<" "<< indice_fin << std::endl;
-		
-	std::cout << "\nTableau 1 : ";
-		for(auto i=indice_debut; i <= milieu;i++)
-		{
-			std::cout << tableau[i] <<' ';
-		}
-		std::cout <<std::endl;
-		
-	std::cout << "Tableau 2 : ";
-		for(auto i=milieu+1; i <= indice_fin;i++)
-		{
-			std::cout << tableau[i] <<' ';
-		}
-		std::cout << std::endl;
-		
-		return Fusion(Merge_sort_dispersion(tableau,indice_debut,milieu),Merge_sort_dispersion(tableau,milieu+1,indice_fin));
+	return Fusion(Merge_sort_dispersion(tableau,indice_debut,milieu),Merge_sort_dispersion(tableau,milieu+1,indice_fin));
 	}
 }
 
@@ -65,13 +58,10 @@ int main()
 {
     std::vector<int> tableau{18,15,4,21,12,42,58,13,45,67,21,1,231,43,32,454,65,65,19};
 	tableau = Merge_sort(tableau);
-	tableau.push_back(5);
 	
 	for(int i : tableau)
 	{
 		std::cout << i <<' ';
 	}
-
-    return 0;
-	
+		
 }
